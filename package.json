@@ -1,0 +1,33 @@
+{
+  "name": "ept-ecs",
+  "version": "1.0.7",
+  "description": "entity component system",
+  "keywords": [
+    "ecs",
+    "entity-component-system"
+  ],
+  "scripts": {
+    "clean": "shx rm -rf dist lib",
+    "build-tsc": "shx rm -rf lib && tsc",
+    "build-webpack": "shx rm -rf dist && webpack && rm -rf dist/lib",
+    "build": "npm run clean && npm run build-tsc && tsc && npm run build-webpack"
+  },
+  "author": "eptwalabha (https://github.com/eptwalabha)",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-typescript": "^3.2.0",
+    "gulp-useref": "^3.1.2",
+    "merge2": "^1.1.0",
+    "mocha": "^4.0.1",
+    "shx": "^0.2.2",
+    "sinon": "^4.1.2",
+    "ts-loader": "^3.1.1",
+    "typescript": "^2.4.1",
+    "webpack": "^3.8.1"
+  }
+}
