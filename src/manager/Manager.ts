@@ -29,4 +29,8 @@ export class Manager {
     public remove(entityId): void {
         delete this.container[entityId];
     }
+
+    public has(entityId): boolean {
+        return this.container[entityId] !== undefined;
+    }
 }

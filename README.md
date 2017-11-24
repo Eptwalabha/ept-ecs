@@ -23,10 +23,10 @@ in order to work, we need to:
 - add all the systems that will be used
 
 #### Registering a component manager
-``` typescrit
+``` typescript
 world.registerComponent(managerName, default);
 ```
-`managenName`: is the name of the manager (two managers cannot have the same name).  
+`managerName`: is the name of the manager (two managers cannot have the same name).  
 `default`: is an instance of `Component`, this will be the default component's value when adding this component to an entity. 
 
 #### Add a system to the world
@@ -36,6 +36,21 @@ world.addSystem(system, enable);
 `system`: is an instance of `System`, a «System» holds the «logic» of the world.  
 `enable`: set this to false if you don't want the `world` to process this system rigth away.  
 
+#### Initiate the world
+``` typescript
+world.init();
+```
+The all process can be chained up
+``` typescript
+world
+    .registerComponent(...)
+    ...
+    .registerComponent(...)
+    .addSystem(...)
+    ...
+    .addSystem(...)
+    .init();
+```
 #### Running the world
 to process the `world`, you need to call:
 ``` typescript

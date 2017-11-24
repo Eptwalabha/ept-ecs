@@ -6,10 +6,12 @@ import {Component} from "./Component";
 export class World {
 
     private systems: Array<System>;
-    private componentManager: ComponentManager;
+    public componentManager: ComponentManager;
     private lastId: number;
-    private delta: number;
-    private cumulativeDelta: number;
+    public delta: number;
+    public cumulativeDelta: number;
+    private toDelete: Array<number>;
+    private toUpdate: Array<number>;
 
     constructor() {
         this.lastId = 0;
@@ -17,6 +19,8 @@ export class World {
         this.cumulativeDelta = 0;
         this.componentManager = new ComponentManager();
         this.systems = [];
+        this.toDelete = [];
+        this.toUpdate = [];
     }
 
     public registerComponent(name: string, defaultValue: Component): World {
@@ -24,9 +28,15 @@ export class World {
         return this;
     }
 
-    public registerComponents(...components: Array<{name: string; defaultValue: Component}>) {
-        for (let i = 0; i < components.length; ++i) {
-            this.componentManager.register(components[i].name, components[i].defaultValue);
+    public addSystem(system: System, enable: boolean = true): World {
+        system.setEnable(enable);
+        this.systems.push(system);
+        return this;
+    }
+
+    public init(): void {
+        for (let system of this.systems) {
+            system.init(this);
         }
     }
 
@@ -34,24 +44,42 @@ export class World {
         return this.componentManager.getManager(name);
     }
 
-    public createEntity() {
-        return ++this.lastId;
+    public create() {
+        let id = ++this.lastId;
+        for (let system of this.systems) {
+            system.tryEntity(id);
+        }
+        return id;
     }
 
-    public addSystem(system: System, enable: boolean = true): World {
-        system.setEnable(enable);
-        system.setWorld(this);
-        this.systems.push(system);
-        return this;
+    private beforeProcess() {
+        // update entities
     }
 
     public process(delta: number) {
+        this.beforeProcess();
         this.delta = delta;
         this.cumulativeDelta += delta;
         for (let system of this.systems) {
             if (system.isEnable()) {
+                system.beforeProcess();
                 system.processAll();
+                system.afterProcess();
             }
+        }
+        this.afterProcess();
+    }
+
+    private afterProcess() {
+        for (let system of this.systems) {
+            system.removeEntities(this.toDelete);
+        }
+        this.toDelete = [];
+    }
+
+    private remove(entity: number) {
+        if (this.toDelete.indexOf(entity) === -1) {
+            this.toDelete.push(entity);
         }
     }
 }

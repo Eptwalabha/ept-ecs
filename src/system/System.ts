@@ -5,6 +5,17 @@ export abstract class System {
     protected world: World;
     private enable: boolean = true;
 
+    public constructor() {
+        this.enable = true;
+        this.entities = [];
+    }
+
+    protected abstract match (entity: number): boolean;
+
+    public init(world: World) {
+        this.world = world;
+    }
+
     public setEnable(enable: boolean) {
         this.enable = enable;
     }
@@ -13,19 +24,19 @@ export abstract class System {
         return this.enable;
     }
 
-    public addEntity(entity: number) {
-        if (this.entities.indexOf(entity) === -1) {
+    public tryEntity(entity: number) {
+        if (this.entities.indexOf(entity) === -1 && this.match(entity)) {
             this.entities.push(entity);
         }
     }
 
-    public removeEntity(entity: number) {
+    public removeEntities(entitiesToRemove: Array<number>) {
         let newEntities: Array<number> = [];
-        this.entities.forEach(function (entityId) {
-            if (entityId !== entity) {
-                newEntities.push(entityId);
+        for (let entity of this.entities) {
+            if (entitiesToRemove.indexOf(entity) === -1) {
+                newEntities.push(entity);
             }
-        });
+        }
         this.entities = newEntities;
     }
 
@@ -35,9 +46,9 @@ export abstract class System {
         }
     }
 
+    public beforeProcess(): void {}
+
     protected abstract process(entity: number): void;
 
-    public setWorld(world: World) {
-        this.world = world;
-    }
+    public afterProcess(): void {}
 }
