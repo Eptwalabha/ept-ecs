@@ -4,3 +4,5 @@ lib
 dist
 npm-debug.log
 index.html
+package-lock.json
+*.tgz
