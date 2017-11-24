@@ -14,8 +14,7 @@ This project is an attempt to make a small and easy to use ecs for web game.
 
 ### How to create a new world?
 ``` typescript
-import { World } from 'ept-ecs/lib'
-
+import {World} from 'ept-ecs/lib'
 let world: World = new World();
 ```
 
@@ -39,7 +38,7 @@ world.addSystem(system, enable);
 
 #### Running the world
 to process the `world`, you need to call:
-```
+``` typescript
 world.process(delta);
 ```
 `delta`: is the amount of time between now and the last call to `process()`
@@ -47,8 +46,7 @@ world.process(delta);
 ### How to create a custom component?
 ``` typescript
 // in Book.ts
-import { Component } from 'ept-ecs/lib'
-
+import {Component} from 'ept-ecs/lib'
 class Book extends Component {
     public nbrPages: number;
     constructor(amount: number = 100) {
