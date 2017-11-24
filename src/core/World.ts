@@ -19,8 +19,9 @@ export class World {
         this.systems = [];
     }
 
-    public registerComponent(name: string, defaultValue: Component) {
+    public registerComponent(name: string, defaultValue: Component): World {
         this.componentManager.register(name, defaultValue);
+        return this;
     }
 
     public registerComponents(...components: Array<{name: string; defaultValue: Component}>) {
@@ -37,10 +38,11 @@ export class World {
         return ++this.lastId;
     }
 
-    public addSystem(system: System, enable: boolean = true) {
+    public addSystem(system: System, enable: boolean = true): World {
         system.setEnable(enable);
         system.setWorld(this);
         this.systems.push(system);
+        return this;
     }
 
     public process(delta: number) {
