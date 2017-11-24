@@ -1,8 +1,4 @@
-import {Component} from "./Component";
-
-interface IManager {
-    [name: string]: Manager;
-}
+import {Component} from "../core/Component";
 
 export class Manager {
     public defaultValue: Component;
@@ -32,22 +28,5 @@ export class Manager {
 
     public remove(entityId): void {
         delete this.container[entityId];
-    }
-}
-
-export class ComponentManager {
-
-    private managers: IManager;
-
-    constructor() {
-        this.managers = {};
-    }
-
-    public register(name: string, component: Component): void {
-        this.managers[name] = new Manager(component);
-    };
-
-    public getManager(name: string): Manager {
-        return this.managers[name];
     }
 }
