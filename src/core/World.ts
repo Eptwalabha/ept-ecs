@@ -24,7 +24,7 @@ export class World {
     }
 
     public registerComponent(name: string, defaultValue: Component): World {
-        this.componentManager.register(name, defaultValue);
+        this.componentManager.register(this, name, defaultValue);
         return this;
     }
 
@@ -46,38 +46,44 @@ export class World {
 
     public create() {
         let id = ++this.lastId;
-        for (let system of this.systems) {
-            system.tryEntity(id);
-        }
+        this.toUpdate.push(id);
         return id;
     }
 
     private beforeProcess() {
-        // update entities
+        for (let entity of this.toUpdate) {
+            let components = this.componentManager.getAllComponents(entity);
+            for (let system of this.systems) {
+                system.accept(entity, components);
+            }
+        }
+        this.toUpdate = [];
     }
 
-    public process(delta: number) {
-        this.beforeProcess();
+    public process(delta: number): void {
         this.delta = delta;
         this.cumulativeDelta += delta;
         for (let system of this.systems) {
-            if (system.isEnable()) {
-                system.beforeProcess();
-                system.processAll();
-                system.afterProcess();
-            }
+            this.beforeProcess();
+            system.processSystem();
+            this.afterProcess();
         }
-        this.afterProcess();
     }
 
-    private afterProcess() {
+    private afterProcess(): void {
         for (let system of this.systems) {
             system.removeEntities(this.toDelete);
         }
         this.toDelete = [];
     }
 
-    private remove(entity: number) {
+    public update(entity: number): void {
+        if (this.toUpdate.indexOf(entity) === -1) {
+            this.toUpdate.push(entity);
+        }
+    }
+
+    public remove(entity: number): void {
         if (this.toDelete.indexOf(entity) === -1) {
             this.toDelete.push(entity);
         }

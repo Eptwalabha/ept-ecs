@@ -1,36 +1,42 @@
-import {Component} from "../core/Component";
+import {World, Component} from "../core";
 
 export class Manager {
     public defaultValue: Component;
+    private world: World;
+
     public container: {
         [id: number]: Component
     };
 
-    constructor(defaultValue: Component) {
+    constructor(world: World, defaultValue: Component) {
+        this.world = world;
         this.defaultValue = defaultValue;
         this.container = {};
     }
 
-    public add(entityId: number, component?: Component): void {
+    public add(entity: number, component?: Component): void {
         if (component === undefined) {
-            this.container[entityId] = {...this.defaultValue};
+            this.container[entity] = {...this.defaultValue};
         } else {
-            this.container[entityId] = component;
+            this.container[entity] = component;
         }
+        this.world.update(entity);
     }
 
-    public fetch(entityId: number): Component {
-        if (this.container[entityId] === undefined) {
-            this.container[entityId] = {...this.defaultValue};
+    public fetch(entity: number): Component {
+        if (this.container[entity] === undefined) {
+            this.container[entity] = {...this.defaultValue};
+            this.world.update(entity);
         }
-        return this.container[entityId];
+        return this.container[entity];
     }
 
-    public remove(entityId): void {
-        delete this.container[entityId];
+    public remove(entity): void {
+        delete this.container[entity];
+        this.world.update(entity);
     }
 
-    public has(entityId): boolean {
-        return this.container[entityId] !== undefined;
+    public has(entity): boolean {
+        return this.container[entity] !== undefined;
     }
 }
