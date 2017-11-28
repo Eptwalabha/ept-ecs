@@ -65,16 +65,18 @@ export class World {
         this.cumulativeDelta += delta;
         for (let system of this.systems) {
             this.beforeProcess();
-            system.processSystem();
+            system.doProcessSystem();
             this.afterProcess();
         }
     }
 
     private afterProcess(): void {
-        for (let system of this.systems) {
-            system.removeEntities(this.toDelete);
+        if (this.toDelete.length > 0) {
+            for (let system of this.systems) {
+                system.removeEntities(this.toDelete);
+            }
+            this.toDelete = [];
         }
-        this.toDelete = [];
     }
 
     public update(entity: number): void {
