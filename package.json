@@ -1,6 +1,6 @@
 {
   "name": "ept-ecs",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "entity component system",
   "keywords": [
     "ecs",
