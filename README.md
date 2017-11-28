@@ -115,7 +115,7 @@ let explosive: Explosive = explosiveManager.fetch(entityId) as Explosive;
 explosive.fuseLength = 300;
 ```
 *notes*:
-- notice the component has been casted as `Book`.
+- notice the component has been casted as `Explosive`.
 - the method `fetch` sets a new Component (a clone of the default value) if entityId doesn't have the required component.
 
 ### Systems
