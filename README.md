@@ -123,9 +123,9 @@ Each time you call `world.process(delta);` every (active) systems are processed 
 
 At the moment, there are 4 types of system:
 - `System`: the most basic, it doesn't handle any entity.
-- `EntitySystem`: this one handle every entities that match its `Aspect` (more on that later)
+- `EntitySystem`: this one handles every entities that match its `Aspect` (more on that later)
 - `DelayedSystem`: this system is set with an internal clock that will decrease with the `delta` you pass to world. It's only processed when its internal clock reaches zero. Like `System` it doesn't handle any entity.
-- **TODO** `DelayedEnitySystem`: A combination of `EnitySystem` and `DelayedSystem`.
+- **TODO** `DelayedEntitySystem`: A combination of `EnitySystem` and `DelayedSystem`.
 
 ### Aspect
 `Aspect` are used by `EntitySystem` and `DelayedEntitySystem`. They define what composition of components an entity should (or should not) have in order to be processed by a system.  

@@ -45,4 +45,47 @@ describe ('Aspect', function () {
             expect(aspect.accept(["a", "d"])).to.be.false;
         });
     });
+
+    describe('combinations', function () {
+        it('all and one', function () {
+            var aspect = new Aspect().all("a", "b").one("c", "d");
+            expect(aspect.accept(["a", "b"])).to.be.false;
+            expect(aspect.accept(["a", "b", "c"])).to.be.true;
+            expect(aspect.accept(["a", "b", "d"])).to.be.true;
+            expect(aspect.accept(["a", "c", "d"])).to.be.false;
+            expect(aspect.accept(["a", "b", "c", "d"])).to.be.true;
+            expect(aspect.accept(["a", "b", "c", "d", "e"])).to.be.true;
+        });
+
+        it('all and none', function () {
+            var aspect = new Aspect().all("a", "b").none("c", "d");
+            expect(aspect.accept(["a", "b"])).to.be.true;
+            expect(aspect.accept(["a", "b", "c"])).to.be.false;
+            expect(aspect.accept(["a", "b", "d"])).to.be.false;
+            expect(aspect.accept(["a", "b", "c", "d"])).to.be.false;
+            expect(aspect.accept(["a", "c"])).to.be.false;
+            expect(aspect.accept(["a", "d"])).to.be.false;
+        });
+
+        it('one and none', function () {
+            var aspect = new Aspect().one("a", "b").none("c", "d");
+            expect(aspect.accept([])).to.be.false;
+            expect(aspect.accept(["a"])).to.be.true;
+            expect(aspect.accept(["b"])).to.be.true;
+            expect(aspect.accept(["a", "c"])).to.be.false;
+            expect(aspect.accept(["e", "d"])).to.be.false;
+            expect(aspect.accept(["c", "d"])).to.be.false;
+        });
+
+        it('all, one and none', function () {
+            var aspect = new Aspect().all("a", "b").one("c", "d").none("e");
+            expect(aspect.accept(["a", "b"])).to.be.false;
+            expect(aspect.accept(["a", "b", "c"])).to.be.true;
+            expect(aspect.accept(["a", "b", "d"])).to.be.true;
+            expect(aspect.accept(["a", "b", "c", "d"])).to.be.true;
+            expect(aspect.accept(["a", "b", "c", "e"])).to.be.false;
+            expect(aspect.accept(["a", "c", "d"])).to.be.false;
+            expect(aspect.accept(["a", "b", "c", "d", "f"])).to.be.true;
+        });
+    });
 });
