@@ -1,8 +1,8 @@
 import {System} from "../system";
 
 export abstract class DelayedSystem extends System {
-    private delay: number;
-    private initialDelay: number;
+    protected delay: number;
+    protected initialDelay: number;
 
     public constructor(delay: number, initial?: number) {
         super();

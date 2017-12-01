@@ -18,6 +18,9 @@ This project is an attempt to make a small and easy to use ecs for web game.
 - `Aspect`: This will help you define what kind of entities your systems should process.
 - `Manager`: This handles the linking between components and entities.
  
+## Example with code
+You can find an example of game using `ept-ecs` on [github](https://github.com/Eptwalabha/ept-ecs-shmup)
+
 ## Setup
 
 ### How to create a new world?
@@ -182,4 +185,3 @@ export class ExplosiveCountDownSystem extends EntitySystem {
 3. Battle test the bloody thing
 4. Host it on Github
 5. Write a proper wiki on how to use the lib
-6. Provide a «real» example
