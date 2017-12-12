@@ -12,6 +12,7 @@ export class World {
     public cumulativeDelta: number;
     private toDelete: Array<number>;
     private toUpdate: Array<number>;
+    private availableIds: Array<number>;
 
     constructor() {
         this.lastId = 0;
@@ -21,10 +22,12 @@ export class World {
         this.systems = [];
         this.toDelete = [];
         this.toUpdate = [];
+        this.availableIds = [];
     }
 
-    public registerComponent(name: string, defaultValue: Component): World {
-        this.componentManager.register(this, name, defaultValue);
+    public registerComponent(name: string, defaultValue?: Component): World {
+        let defaultComponent: Component = defaultValue ? defaultValue : new Component();
+        this.componentManager.register(this, name, defaultComponent);
         return this;
     }
 
@@ -45,6 +48,9 @@ export class World {
     }
 
     public create() {
+        if (this.availableIds.length > 0) {
+            return this.availableIds.pop();
+        }
         let id = ++this.lastId;
         this.toUpdate.push(id);
         return id;
@@ -60,7 +66,7 @@ export class World {
         this.toUpdate = [];
     }
 
-    public process(delta: number): void {
+    public process(delta: number = 0): void {
         this.delta = delta;
         this.cumulativeDelta += delta;
         for (let system of this.systems) {
@@ -68,12 +74,18 @@ export class World {
             system.doProcessSystem();
             this.afterProcess();
         }
+        this.afterProcess();
     }
 
     private afterProcess(): void {
         if (this.toDelete.length > 0) {
             for (let system of this.systems) {
                 system.removeEntities(this.toDelete);
+            }
+            for (let entity of this.toDelete) {
+                if (this.availableIds.indexOf(entity) === -1) {
+                    this.availableIds.push(entity);
+                }
             }
             this.toDelete = [];
         }
