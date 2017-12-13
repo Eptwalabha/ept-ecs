@@ -2,7 +2,7 @@ import {Aspect} from "../core";
 import {System} from "../system";
 
 export abstract class EntitySystem extends System {
-    private entities: Array<number>;
+    protected entities: Array<number>;
     private aspect: Aspect;
 
     public constructor(aspect: Aspect) {
@@ -41,7 +41,7 @@ export abstract class EntitySystem extends System {
         }
     }
 
-    private processEntities(): void {
+    protected processEntities(): void {
         for (let entity of this.entities) {
             this.process(entity);
         }

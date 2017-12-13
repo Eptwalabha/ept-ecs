@@ -1,11 +1,13 @@
 import {System} from "../system";
 
-export abstract class DelayedSystem extends System {
+export abstract class IntervalSystem extends System {
     protected delay: number;
+    protected interval: number;
 
-    public constructor(delay: number) {
+    public constructor(interval: number, delay?: number) {
         super();
-        this.delay = delay;
+        this.interval = interval;
+        this.delay = (delay === undefined) ? interval : delay;
     }
 
     protected updateDelay () {
@@ -19,16 +21,8 @@ export abstract class DelayedSystem extends System {
                 this.beforeProcess();
                 this.processSystem();
                 this.afterProcess();
-                this.delay = 0;
-                this.setEnable(false);
+                this.delay += this.interval;
             }
         }
     }
-
-    public addDelay(delay: number, enable: boolean = true) {
-        this.setEnable(enable);
-        this.delay += delay;
-    }
-
-    protected abstract processSystem(): void;
 }
