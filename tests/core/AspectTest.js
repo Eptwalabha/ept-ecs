@@ -1,6 +1,6 @@
 var chai = require('chai'),
     expect = chai.expect,
-    Aspect = require('../../lib/core/Aspect').Aspect;
+    Aspect = require('../../dist/ept-ecs').Aspect;
 
 describe ('Aspect', function () {
 

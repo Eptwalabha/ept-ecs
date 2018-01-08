@@ -88,7 +88,7 @@ import {Component} from 'ept-ecs/lib'
 class Activate extends Component {
 }
 ```
-You should **never** put logic inside your components. This is what **system are made for!**
+You should **never** put logic inside your components. This is what **systems are made for!**
 ### How to work with components?
 
 #### Managers

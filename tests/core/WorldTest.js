@@ -1,6 +1,6 @@
 var chai = require('chai'),
     expect = chai.expect,
-    World = require('../../lib/core/World').World;
+    World = require('../../dist/ept-ecs').World;
 
 describe ('World', function () {
 

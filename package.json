@@ -9,9 +9,7 @@
   "scripts": {
     "clean": "shx rm -rf dist lib",
     "build-tsc": "shx rm -rf lib && tsc",
-    "build-webpack": "shx rm -rf dist && webpack && rm -rf dist/lib",
-    "build": "npm run clean && npm run build-tsc && tsc && npm run build-webpack",
-    "pack": "npm run build && npm pack"
+    "build": "npm run clean && npm run build-tsc"
   },
   "author": "eptwalabha (https://github.com/eptwalabha)",
   "license": "MIT",
@@ -19,16 +17,21 @@
   "types": "./dist/index.d.ts",
   "dependencies": {},
   "devDependencies": {
+    "browserify": "^15.0.0",
     "chai": "^4.1.2",
-    "gulp": "github:gulpjs/gulp#4.0",
-    "gulp-typescript": "^3.2.0",
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.6.3",
+    "gulp-typescript": "^3.2.3",
+    "gulp-uglify": "^3.0.0",
     "gulp-useref": "^3.1.2",
     "merge2": "^1.1.0",
     "mocha": "^4.0.1",
     "shx": "^0.2.2",
     "sinon": "^4.1.2",
-    "ts-loader": "^3.1.1",
-    "typescript": "^2.4.1",
-    "webpack": "^3.8.1"
+    "tsify": "^3.0.4",
+    "typescript": "^2.6.2",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
   }
 }
