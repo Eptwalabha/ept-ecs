@@ -6,3 +6,4 @@ npm-debug.log
 index.html
 package-lock.json
 *.tgz
+*.swp
