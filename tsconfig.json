@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
-        "moduleResolution": "node",
-        "module": "CommonJS",
-        "target": "ES5",
-        "lib": ["ES2015", "ES2017", "dom"],
-        "outDir": "./lib",
         "declaration": true,
-        "sourceMap": true
+        "lib": ["ES2015", "ES2017", "dom"],
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "strict": true,
+        "outDir": "./lib",
+        "sourceMap": true,
+        "target": "ES5"
     },
     "include": [
         "./src/index.ts"

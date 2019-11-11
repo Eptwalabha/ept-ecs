@@ -31,16 +31,16 @@ export class Manager {
         return this.container[entity];
     }
 
-    public remove(entity): void {
+    public remove(entity: number): void {
         delete this.container[entity];
         this.world.update(entity);
     }
 
-    public has(entity): boolean {
+    public has(entity: number): boolean {
         return this.container[entity] !== undefined;
     }
 
-    public clean(entity): void {
+    public clean(entity: number): void {
         delete this.container[entity];
     }
 }

@@ -1,4 +1,4 @@
-import {World} from "../core/World";
+import { World } from "../core";
 
 export abstract class System {
     protected world: World;
@@ -6,6 +6,7 @@ export abstract class System {
 
     public constructor() {
         this.enable = true;
+        this.world = new World();
     }
 
     public accept(entity: number, components: Array<string>): void {}

@@ -48,12 +48,12 @@ export class World {
     }
 
     public create() {
-        if (this.availableIds.length > 0) {
-            return this.availableIds.pop();
+        let entityId = this.availableIds.pop();
+        if (entityId === undefined) {
+            entityId = ++this.lastId;
         }
-        let id = ++this.lastId;
-        this.toUpdate.push(id);
-        return id;
+        this.toUpdate.push(entityId);
+        return entityId;
     }
 
     private beforeProcess() {
