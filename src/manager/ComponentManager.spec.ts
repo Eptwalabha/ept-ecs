@@ -1,5 +1,4 @@
 import { expect } from 'chai'
-import { ComponentManager } from '../manager'
 import { World } from '../core';
 
 
