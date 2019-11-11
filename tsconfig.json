@@ -1,14 +1,17 @@
 {
     "compilerOptions": {
         "moduleResolution": "node",
-        "module": "commonjs",
-        "target": "es5",
-        "lib": ["es2015", "es2017", "dom"],
+        "module": "CommonJS",
+        "target": "ES5",
+        "lib": ["ES2015", "ES2017", "dom"],
         "outDir": "./lib",
         "declaration": true,
         "sourceMap": true
     },
     "include": [
         "./src/index.ts"
+    ],
+    "exclude": [
+        "./src/**/*.spec.ts"
     ]
 }
