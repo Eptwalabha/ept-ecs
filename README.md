@@ -25,7 +25,7 @@ You can find an example of game using `ept-ecs` on [github](https://github.com/E
 
 ### How to create a new world?
 ``` typescript
-import {World} from 'ept-ecs/lib'
+import {World} from 'ept-ecs'
 let world: World = new World();
 ```
 
@@ -74,7 +74,7 @@ world.process(delta);
 Instances of `Component` are simple structures that contain the data of our game.
 ``` typescript
 // in Explosive.ts
-import {Component} from 'ept-ecs/lib'
+import {Component} from 'ept-ecs'
 class Explosive extends Component {
     public fuseLength: number;
     constructor(fuseLength: number = 100) {
@@ -84,7 +84,7 @@ class Explosive extends Component {
 }
 
 // in Activate.ts
-import {Component} from 'ept-ecs/lib'
+import {Component} from 'ept-ecs'
 class Activate extends Component {
 }
 ```
@@ -95,7 +95,7 @@ You should **never** put logic inside your components. This is what **systems ar
 In this library, entities are only uniq ids. To attach any king of data (components) to them, you need to use `Managers`.
 Each components registered to the world has one. To fetch a specific manager:
 ``` typescript
-import {World, Manager} from 'ept-ecs/lib'
+import {World, Manager} from 'ept-ecs'
 let world: World = new World();
 world
     .registerComponent("explosive", new Explosive(10))

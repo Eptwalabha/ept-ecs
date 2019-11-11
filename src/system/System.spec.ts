@@ -1,4 +1,4 @@
-import { expect, should } from 'chai'
+import { expect } from 'chai'
 import { spy } from 'sinon'
 import { World, System } from '../index'
 
