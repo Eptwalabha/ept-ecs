@@ -57,29 +57,28 @@ export class World {
     }
 
     private beforeProcess() {
-        for (let entity of this.toUpdate) {
+        this.toUpdate.forEach(entity => {
             let components = this.componentManager.getAllComponents(entity);
-            for (let system of this.systems) {
-                system.accept(entity, components);
-            }
-        }
+            this.systems.forEach(system => system.accept(entity, components));
+        });
         this.toUpdate = [];
     }
 
     public process(delta: number = 0): void {
         this.delta = delta;
         this.cumulativeDelta += delta;
-        for (let system of this.systems) {
+        this.systems.forEach(system => {
             this.beforeProcess();
             system.doProcessSystem();
             this.afterProcess();
-        }
+        });
         this.afterProcess();
     }
 
     private afterProcess(): void {
         if (this.toDelete.length > 0) {
             this.systems.forEach(system => system.removeEntities(this.toDelete));
+            this.componentManager.cleanEntitiesComponents(this.toDelete);
             this.toDelete.forEach(entityId => {
                 if (!this.availableIds.includes(entityId)) {
                     this.availableIds.push(entityId);
@@ -90,13 +89,13 @@ export class World {
     }
 
     public update(entity: number): void {
-        if (this.toUpdate.indexOf(entity) === -1) {
+        if (!this.toUpdate.includes(entity)) {
             this.toUpdate.push(entity);
         }
     }
 
     public remove(entity: number): void {
-        if (this.toDelete.indexOf(entity) === -1) {
+        if (!this.toDelete.includes(entity)) {
             this.toDelete.push(entity);
         }
     }

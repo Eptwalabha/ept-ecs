@@ -30,4 +30,12 @@ export class ComponentManager {
         }
         return components;
     }
+
+    public cleanEntitiesComponents(entities: Array<number>): void {
+        for (let name in this.managers) {
+            entities.forEach(entity => {
+                this.managers[name].clean(entity);
+            });
+        }
+    }
 }

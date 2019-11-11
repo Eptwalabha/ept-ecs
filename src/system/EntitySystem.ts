@@ -22,13 +22,7 @@ export abstract class EntitySystem extends System {
     }
 
     public removeEntities(entitiesToRemove: Array<number>) {
-        let newEntities: Array<number> = [];
-        for (let entity of this.entities) {
-            if (entitiesToRemove.indexOf(entity) === -1) {
-                newEntities.push(entity);
-            }
-        }
-        this.entities = newEntities;
+        this.entities = this.entities.filter(entity => !entitiesToRemove.includes(entity));
     }
 
     public doProcessSystem(): void {

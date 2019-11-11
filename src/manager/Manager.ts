@@ -39,4 +39,8 @@ export class Manager {
     public has(entity): boolean {
         return this.container[entity] !== undefined;
     }
+
+    public clean(entity): void {
+        delete this.container[entity];
+    }
 }
