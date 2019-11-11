@@ -10,7 +10,9 @@
   "scripts": {
     "clean": "shx rm -rf dist lib",
     "build-tsc": "shx rm -rf lib && tsc",
-    "build": "npm run clean && npm run build-tsc"
+    "build": "npm run clean && npm run build-tsc",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "author": "eptwalabha (https://github.com/eptwalabha)",
   "license": "MIT",
