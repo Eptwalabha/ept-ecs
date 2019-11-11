@@ -2,10 +2,16 @@
   "name": "ept-ecs",
   "version": "1.2.1",
   "test": "jest",
-  "description": "entity component system",
+  "description": "An easy to use ECS (Entity Component System) lib for gamedev",
   "keywords": [
+    "component",
     "ecs",
-    "entity-component-system"
+    "entity component system",
+    "entity",
+    "entity-component-system",
+    "game-dev",
+    "system",
+    "typescript"
   ],
   "scripts": {
     "clean": "shx rm -rf dist lib",
