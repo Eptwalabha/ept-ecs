@@ -10,7 +10,7 @@ export class Aspect {
         this.noneComponents = [];
     }
 
-    public accept (components: Array<string>): boolean {
+    public accept(components: Array<string>): boolean {
         return this.checkAll(components) && this.checkOne(components) && this.checkNone(components);
     }
 
@@ -30,23 +30,14 @@ export class Aspect {
     }
 
     private checkAll(components: Array<string>) {
-        let fun = (component: string) => {
-            return components.indexOf(component) !== -1;
-        };
-        return this.allComponents.length === 0 || this.allComponents.every(fun);
+        return this.allComponents.length === 0 || this.allComponents.every((componentName: string) => components.includes(componentName));
     }
 
     private checkOne(components: Array<string>) {
-        let fun = (component: string) => {
-            return components.indexOf(component) !== -1;
-        };
-        return this.oneComponents.length === 0 || this.oneComponents.some(fun);
+        return this.oneComponents.length === 0 || this.oneComponents.some((componentName: string) => components.includes(componentName));
     }
 
     private checkNone(components: Array<string>) {
-        let fun = (component: string) => {
-            return components.indexOf(component) === -1;
-        };
-        return this.noneComponents.length === 0 || this.noneComponents.every(fun);
+        return this.noneComponents.length === 0 || this.noneComponents.every((componentName: string) => !components.includes(componentName));
     }
 }

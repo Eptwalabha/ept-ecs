@@ -12,14 +12,12 @@ export abstract class EntitySystem extends System {
     }
 
     public accept(entity: number, components: Array<string>): void {
-        var present = this.entities.indexOf(entity) !== -1;
+        var present = this.entities.includes(entity);
         var valid = this.aspect.accept(components);
         if (!present && valid) {
             this.entities.push(entity);
         } else if (present && !valid) {
-            this.entities = this.entities.filter(function (sEntity) {
-                return sEntity !== entity;
-            });
+            this.entities = this.entities.filter(sEntity => sEntity !== entity);
         }
     }
 

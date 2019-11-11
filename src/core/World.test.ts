@@ -1,6 +1,5 @@
-var chai = require('chai'),
-    expect = chai.expect,
-    World = require('../../dist/ept-ecs').World;
+import { expect } from 'chai'
+import { World } from '../index'
 
 describe ('World', function () {
 

@@ -79,14 +79,12 @@ export class World {
 
     private afterProcess(): void {
         if (this.toDelete.length > 0) {
-            for (let system of this.systems) {
-                system.removeEntities(this.toDelete);
-            }
-            for (let entity of this.toDelete) {
-                if (this.availableIds.indexOf(entity) === -1) {
-                    this.availableIds.push(entity);
+            this.systems.forEach(system => system.removeEntities(this.toDelete));
+            this.toDelete.forEach(entityId => {
+                if (!this.availableIds.includes(entityId)) {
+                    this.availableIds.push(entityId);
                 }
-            }
+            });
             this.toDelete = [];
         }
     }
