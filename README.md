@@ -154,8 +154,8 @@ new Aspect()
     .none("wet");
 ```
 
-## Systems examples:
-### `EntitySystem`
+## Code examples:
+### use of `Aspect` for an `EntitySystem`
 In this example, the system is handling any entity that is an **"active"** **"explosive"** that can either be a **"dynamite"** or a **"tntbox"** but who isn't **"wet"** nor **"defective"**  
 ``` typescript
 import {Aspect, EntitySystem, Manager, World} from 'ept-ecs';
@@ -164,7 +164,12 @@ export class ExplosiveCountDownSystem extends EntitySystem {
     private explosiveManager: Manager;
 
     public constructor() {
-        super(new Aspect().all("explosive", "activate").one("dynamite", "tntbox").none("wet", "defective"));
+        super(
+            new Aspect()
+                .all("explosive", "activate")
+                .one("dynamite", "tntbox")
+                .none("wet", "defective")
+        );
     }
 
     public init(world: World): void {
@@ -173,7 +178,7 @@ export class ExplosiveCountDownSystem extends EntitySystem {
     }
 
     public process(entity: number): void {
-        let explosive: Explosive = this.explosiveManager.fetch(entity) as Explosive;
+        let explosive = this.explosiveManager.fetch(entity) as Explosive;
         explosive.fuseLength -= this.world.delta;
         if (explosive.fuseLength <= 0) {
             this.world.remove(entity);
@@ -183,38 +188,37 @@ export class ExplosiveCountDownSystem extends EntitySystem {
 ``` 
 
 ### `DelayedEntitySystem`
-This system requires a bit more code than any other system in order to work.
-We need to trigger every entities of the system after a certain delay (which might be different for every entities). Because each entity has its own delay, this kind of system cannot deside on its own when to process them. To do that, you need to implement the `updateEntityDelay` function of `DelayedEntitySystem`.  
+In this example, we have a system that automaticaly destroy any projectile 5 seconds after it has been thrown.  
+In order to work, this system requires a bit more code. You need to implement the `updateEntityDelay` function of `DelayedEntitySystem`.  
 The `updateEntityDelay` returns `true` or `false` if an entity needs to be process or not.  
-Imagine we need to make entity invinsible for 1 second after it's been hit, then the system could be written as such:
 ``` typescript
 import { DelayedEntitySystem, Manager } from 'ept-ecs'
-import { CoolDownHit } from '../components/CoolDownHit';
+import { TimeToLiveProjectile } from '../components/TimeToLiveProjectile';
 
-export class InvinsibleSystem extends DelayedEntitySystem {
-    private coolDownHitManager: Manager;
+export class DeleteOldProjectileSystem extends DelayedEntitySystem {
+    private ttlProjectileManager: Manager;
 
     public init() {
-        this.coolDownHitManager = this.world.getComponentManager("coolDownHit");
+        this.ttlProjectileManager = this.world.getComponentManager("ttlProjectile");
     }
 
     updateEntityDelay(entity: number): boolean {
-        let coolDown: CoolDownHit = this.coolDownHitManager.fetch(entity) as CoolDownHit;
-        coolDown.ttl -= this.world.delta;
-        return coolDown.ttl <= 0;
+        let ttlProjectile = this.ttlProjectileManager.fetch(entity) as TimeToLiveProjectile;
+        ttlProjectile.ttl -= this.world.delta;
+        return ttlProjectile.ttl <= 0;
     }
     
     protected process(entity: number): void {
-        this.coolDownHitManager.remove(entity);
+        this.world.remove(entity);
         // do other stuf
     }
 }
 ```
-The component `CoolDownHit`:
+The component `TimeToLiveProjectile`:
 ``` typescript
 import { Component } from "ept-ecs";
 
-export class CoolDownHit extends Component {
+export class TimeToLiveProjectile extends Component {
     public ttl: number = 1000;
 }
 ```
@@ -227,7 +231,12 @@ export class DamageOverTimeSystem extends IntervalEntitySystem {
     private deadManager: Manager;
 
     constructor(interval: number = 20000) {
-        super(new Aspect().all("health").none("dead", "invinsible"), interval);
+        super(
+            new Aspect()
+                .all("health")
+                .none("dead", "invinsible"),
+            interval
+        );
     }
 
     public init() {
@@ -236,7 +245,7 @@ export class DamageOverTimeSystem extends IntervalEntitySystem {
     }
 
     protected process(entity: number): void {
-        let health: Health = this.healthManager.fetch(entity) as Health;
+        let health = this.healthManager.fetch(entity) as Health;
         health.amount -= 10;
         if (health.amount <= 0) {
             this.deadManager.add(entity);
@@ -258,13 +267,13 @@ export class IntervalPerEntitySystem extends DelayedEntitySystem {
     }
 
     updateEntityDelay(entity: number): boolean {
-        let entityInterval: EntityInterval = this.entityIntervalManager.fetch(entity) as EntityInterval;
+        let entityInterval = this.entityIntervalManager.fetch(entity) as EntityInterval;
         entityInterval.ttl -= this.world.delta;
         return entityInterval.ttl <= 0;
     }
     
     protected process(entity: number): void {
-        let entityInterval: EntityInterval = this.entityIntervalManager.fetch(entity) as EntityInterval;
+        let entityInterval = this.entityIntervalManager.fetch(entity) as EntityInterval;
         entityInterval.ttl += entityInterval.interval;
     }
 }
