@@ -13,17 +13,15 @@ export abstract class DelayedEntitySystem extends EntitySystem {
 
     private updateEntitiesDelay() {
         this.entitiesToProcess = [];
-        for (let entity of this.entities) {
+        this.entities.forEach(entity => {
             if (this.updateEntityDelay(entity)) {
                 this.entitiesToProcess.push(entity);
             }
-        }
+        });
     }
 
     protected processEntities(): void {
-        for (let entity of this.entitiesToProcess) {
-            this.process(entity);
-        }
+        this.entitiesToProcess.forEach(entity => this.process(entity));
         this.entitiesToProcess = [];
     }
 
