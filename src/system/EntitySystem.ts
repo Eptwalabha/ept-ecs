@@ -33,6 +33,9 @@ export abstract class EntitySystem extends System {
         }
     }
 
+    /* tslint:disable:no-empty */
+    protected processSystem(): void {}
+
     protected processEntities(): void {
         for (const entity of this.entities) {
             this.process(entity);
