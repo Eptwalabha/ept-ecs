@@ -4,6 +4,7 @@ import {Aspect} from "../core/Aspect";
 export abstract class IntervalEntitySystem extends EntitySystem {
     protected delay: number;
     protected interval: number;
+    private catchUp: boolean = true;
 
     public constructor(aspect: Aspect, interval: number, delay?: number) {
         super(aspect);
@@ -15,6 +16,10 @@ export abstract class IntervalEntitySystem extends EntitySystem {
         this.delay -= this.world.delta;
     }
 
+    public enableCatchUpDelay(catchUp: boolean): void {
+        this.catchUp = catchUp;
+    }
+
     public doProcessSystem(): void {
         if (this.isEnable()) {
             this.updateDelay();
@@ -22,7 +27,11 @@ export abstract class IntervalEntitySystem extends EntitySystem {
                 this.beforeProcess();
                 this.processEntities();
                 this.afterProcess();
-                this.delay += this.interval;
+                if (this.catchUp) {
+                    this.delay += this.interval;
+                } else {
+                    this.delay = - this.delay % this.interval;
+                }
             }
         }
     }
