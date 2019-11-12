@@ -1,6 +1,6 @@
 {
   "name": "ept-ecs",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "test": "jest",
   "description": "An easy to use ECS (Entity Component System) lib for gamedev",
   "keywords": [
