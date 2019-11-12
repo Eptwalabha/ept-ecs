@@ -1,8 +1,9 @@
 # IMPORTANT NOTE:
 ## This is a work in progress!
 This means:
-- All the basic functionality are there, but this library isn't optimized yet.
-- Right now, the test coverage isn't what it should be (this will change eventually) so bugs might be present.
+- All functionalities are there, but this library isn't optimized yet.
+- While ok, the test coverage (currently around 80%+) isn't the 100% that it should be. Don't worry, I'm on it.
+That said, this lib is working fine as it is.
 
 # ECS
 ## Entity-component-system

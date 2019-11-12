@@ -2,6 +2,7 @@
 **/tsconfig.json
 **/webpack.config.js
 node_modules
+coverage
 src
 tests
 npm-debug.log
