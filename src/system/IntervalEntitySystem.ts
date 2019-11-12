@@ -1,5 +1,5 @@
-import {EntitySystem} from "../system";
-import {Aspect} from "../core/Aspect";
+import {EntitySystem} from '../system';
+import {Aspect} from '../core/Aspect';
 
 export abstract class IntervalEntitySystem extends EntitySystem {
     protected delay: number;
@@ -12,7 +12,7 @@ export abstract class IntervalEntitySystem extends EntitySystem {
         this.delay = (delay === undefined) ? interval : delay;
     }
 
-    protected updateDelay () {
+    protected updateDelay() {
         this.delay -= this.world.delta;
     }
 

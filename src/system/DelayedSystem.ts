@@ -1,4 +1,4 @@
-import {System} from "../system";
+import {System} from '../system';
 
 export abstract class DelayedSystem extends System {
     protected delay: number;
@@ -8,7 +8,7 @@ export abstract class DelayedSystem extends System {
         this.delay = delay;
     }
 
-    protected updateDelay () {
+    protected updateDelay() {
         this.delay -= this.world.delta;
     }
 

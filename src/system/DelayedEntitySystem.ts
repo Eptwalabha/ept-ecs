@@ -1,8 +1,8 @@
-import {EntitySystem} from "../system";
-import {Aspect} from "../core/Aspect";
+import {EntitySystem} from '../system';
+import {Aspect} from '../core/Aspect';
 
 export abstract class DelayedEntitySystem extends EntitySystem {
-    private entitiesToProcess: Array<number>;
+    private entitiesToProcess: number[];
 
     public constructor(aspect: Aspect) {
         super(aspect);

@@ -14,9 +14,10 @@
     "typescript"
   ],
   "scripts": {
-    "clean": "shx rm -rf dist lib",
-    "build-tsc": "shx rm -rf lib && tsc",
     "build": "npm run clean && npm run build-tsc",
+    "build-tsc": "shx rm -rf lib && tsc",
+    "clean": "shx rm -rf dist lib",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
@@ -36,6 +37,7 @@
     "sinon": "^7.5.0",
     "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
+    "tslint": "^5.20.1",
     "typescript": "^3.7.2"
   }
 }

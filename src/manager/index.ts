@@ -1,2 +1,2 @@
-export * from './Manager'
-export * from './ComponentManager'
+export * from './Manager';
+export * from './ComponentManager';

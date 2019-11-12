@@ -1,4 +1,4 @@
-import { World } from "../core";
+import { World } from '../core';
 
 export abstract class System {
     protected world: World;
@@ -8,8 +8,6 @@ export abstract class System {
         this.enable = true;
         this.world = new World();
     }
-
-    public accept(entity: number, components: Array<string>): void {}
 
     public init(world: World) {
         this.world = world;
@@ -23,7 +21,11 @@ export abstract class System {
         return this.enable;
     }
 
-    public removeEntities(entitiesToRemove: Array<number>) {}
+    /* tslint:disable:no-empty */
+    public accept(entity: number, components: string[]): void {}
+
+    /* tslint:disable:no-empty */
+    public removeEntities(entitiesToRemove: number[]): void {}
 
     public doProcessSystem(): void {
         if (this.isEnable()) {
@@ -33,9 +35,11 @@ export abstract class System {
         }
     }
 
+    /* tslint:disable:no-empty */
     protected beforeProcess(): void {}
 
     protected abstract processSystem(): void;
 
+    /* tslint:disable:no-empty */
     protected afterProcess(): void {}
 }

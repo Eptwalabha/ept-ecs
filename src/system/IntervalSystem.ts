@@ -1,4 +1,4 @@
-import {System} from "../system";
+import {System} from '../system';
 
 export abstract class IntervalSystem extends System {
     protected delay: number;
@@ -11,7 +11,7 @@ export abstract class IntervalSystem extends System {
         this.delay = (delay === undefined) ? interval : delay;
     }
 
-    protected updateDelay () {
+    protected updateDelay() {
         this.delay -= this.world.delta;
     }
 

@@ -1,3 +1,3 @@
-export * from './Aspect'
-export * from './Component'
-export * from './World'
+export * from './Aspect';
+export * from './Component';
+export * from './World';

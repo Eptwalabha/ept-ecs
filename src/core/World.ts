@@ -1,18 +1,18 @@
-import {System} from "../system/System";
-import {ComponentManager} from "../manager/ComponentManager";
-import {Manager} from "../manager/Manager";
-import {Component} from "./Component";
+import {System} from '../system/System';
+import {ComponentManager} from '../manager/ComponentManager';
+import {Manager} from '../manager/Manager';
+import {Component} from './Component';
 
 export class World {
 
-    private systems: Array<System>;
+    private systems: System[];
     public componentManager: ComponentManager;
     private lastId: number;
     public delta: number;
     public cumulativeDelta: number;
-    private toDelete: Array<number>;
-    private toUpdate: Array<number>;
-    private availableIds: Array<number>;
+    private toDelete: number[];
+    private toUpdate: number[];
+    private availableIds: number[];
 
     constructor() {
         this.lastId = 0;
@@ -26,7 +26,7 @@ export class World {
     }
 
     public registerComponent(name: string, defaultValue?: Component): World {
-        let defaultComponent: Component = defaultValue ? defaultValue : new Component();
+        const defaultComponent: Component = defaultValue ? defaultValue : new Component();
         this.componentManager.register(this, name, defaultComponent);
         return this;
     }
@@ -38,9 +38,7 @@ export class World {
     }
 
     public init(): void {
-        for (let system of this.systems) {
-            system.init(this);
-        }
+        this.systems.forEach(system => system.init(this));
     }
 
     public getComponentManager(name: string): Manager {
@@ -58,7 +56,7 @@ export class World {
 
     private beforeProcess() {
         this.toUpdate.forEach(entity => {
-            let components = this.componentManager.getAllComponents(entity);
+            const components = this.componentManager.getAllComponents(entity);
             this.systems.forEach(system => system.accept(entity, components));
         });
         this.toUpdate = [];

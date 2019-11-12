@@ -1,11 +1,11 @@
-import {World, Component} from "../core";
+import {World, Component} from '../core';
 
 export class Manager {
     public defaultValue: Component;
     private world: World;
 
     public container: {
-        [id: number]: Component
+        [id: number]: Component,
     };
 
     constructor(world: World, defaultValue: Component) {

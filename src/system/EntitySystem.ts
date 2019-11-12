@@ -1,8 +1,8 @@
-import {Aspect} from "../core";
-import {System} from "../system";
+import {Aspect} from '../core';
+import {System} from '../system';
 
 export abstract class EntitySystem extends System {
-    protected entities: Array<number>;
+    protected entities: number[];
     private aspect: Aspect;
 
     public constructor(aspect: Aspect) {
@@ -11,9 +11,9 @@ export abstract class EntitySystem extends System {
         this.entities = [];
     }
 
-    public accept(entity: number, components: Array<string>): void {
-        var present = this.entities.includes(entity);
-        var valid = this.aspect.accept(components);
+    public accept(entity: number, components: string[]): void {
+        const present = this.entities.includes(entity);
+        const valid = this.aspect.accept(components);
         if (!present && valid) {
             this.entities.push(entity);
         } else if (present && !valid) {
@@ -21,7 +21,7 @@ export abstract class EntitySystem extends System {
         }
     }
 
-    public removeEntities(entitiesToRemove: Array<number>) {
+    public removeEntities(entitiesToRemove: number[]) {
         this.entities = this.entities.filter(entity => !entitiesToRemove.includes(entity));
     }
 
@@ -34,12 +34,11 @@ export abstract class EntitySystem extends System {
     }
 
     protected processEntities(): void {
-        for (let entity of this.entities) {
+        for (const entity of this.entities) {
             this.process(entity);
         }
     }
 
     protected abstract process(entity: number): void;
 
-    public processSystem(): void {}
 }
