@@ -11,14 +11,16 @@ export abstract class EntitySystem extends System {
         this.entities = [];
     }
 
-    public accept(entity: number, components: string[]): void {
+    public accept(entity: number, components: string[]): boolean {
         const present = this.entities.includes(entity);
         const valid = this.aspect.accept(components);
         if (!present && valid) {
             this.entities.push(entity);
+            return true;
         } else if (present && !valid) {
             this.entities = this.entities.filter(sEntity => sEntity !== entity);
         }
+        return valid;
     }
 
     public removeEntities(entitiesToRemove: number[]) {

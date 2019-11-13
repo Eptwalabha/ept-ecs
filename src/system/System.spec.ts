@@ -25,7 +25,6 @@ describe('System', () => {
         }
     }
 
-
     it('call the System process method on world update', () => {
         let world = new World();
         let callback: SinonSpy = fake();

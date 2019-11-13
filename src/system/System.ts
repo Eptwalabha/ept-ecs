@@ -21,12 +21,6 @@ export abstract class System {
         return this.enable;
     }
 
-    /* tslint:disable:no-empty */
-    public accept(entity: number, components: string[]): void {}
-
-    /* tslint:disable:no-empty */
-    public removeEntities(entitiesToRemove: number[]): void {}
-
     public doProcessSystem(): void {
         if (this.isEnable()) {
             this.beforeProcess();
