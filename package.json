@@ -13,6 +13,10 @@
     "system",
     "typescript"
   ],
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/Eptwalabha/ept-ecs.git"
+  },
   "scripts": {
     "build": "npm run clean && npm run build-tsc",
     "build-tsc": "shx rm -rf lib && tsc",

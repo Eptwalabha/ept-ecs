@@ -6,3 +6,4 @@ coverage
 src
 tests
 npm-debug.log
+tslint.json
