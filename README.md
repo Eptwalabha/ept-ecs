@@ -1,9 +1,6 @@
 # IMPORTANT NOTE:
 ## This is a work in progress!
-This means:
-- All functionalities are there, but this library isn't optimized yet.
-- While ok, the test coverage (currently around 80%+) isn't the 100% that it should be. Don't worry, I'm on it.
-That said, this lib is working fine as it is.
+All major features are there, but this library isn't optimized yet.
 
 # ECS
 ## Entity-component-system
@@ -292,7 +289,7 @@ export class EntityInterval extends Component {
 - [ ] Optimize everything
 - [x] Add a DelayedEntitySystem
 - [x] Add a IntervalSystem & IntervalEntitySystem
-- [ ] Battle test the bloody thing
-- [ ] Host it on Github
+- [x] Battle test the bloody thing
+- [x] Host it on Github
 - [x] Write examples on how to use/implement Systems
 - [ ] Write a proper wiki on how to use the lib
