@@ -1,6 +1,6 @@
 {
   "name": "ept-ecs",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "test": "jest",
   "description": "An easy to use ECS (Entity Component System) lib for gamedev",
   "keywords": [
@@ -14,8 +14,8 @@
     "typescript"
   ],
   "repository": {
-      "type": "git",
-      "url": "https://github.com/Eptwalabha/ept-ecs.git"
+    "type": "git",
+    "url": "https://github.com/Eptwalabha/ept-ecs.git"
   },
   "scripts": {
     "build": "npm run clean && npm run build-tsc",
